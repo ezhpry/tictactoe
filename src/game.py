@@ -2,11 +2,14 @@ import numpy as np
 import random
 from tqdm import tqdm
 import re
+import os
+import pickle
+
+dirname=os.path.dirname(os.path.abspath(__file__))
 
 EMPTY = 0
 BLACK = 1
 WHITE = -1
-
 
 def end_game(state: np.ndarray) -> np.ndarray | None:
     r0 = list(np.sum(state, axis=0))  # 按列求和
@@ -29,10 +32,20 @@ def hash(state: np.ndarray):
 
 class Model(object):
     def __init__(self, epsilon=0.7, count=10000):
-
-        self.table: dict[tuple, np.ndarray] = {}
         self.epsilon = epsilon
         self.count = count
+        self.filename=os.path.join(dirname,"model.pkl")
+        self.table: dict[tuple, np.ndarray] =self.load()
+
+    def save(self):
+        with open(self.filename,"wb") as file:
+            file.write(pickle.dumps(self.table))
+    def load(self):
+        if not os.path.exists(self.filename):
+            return {}
+        with open(self.filename,'rb') as file:
+            return pickle.loads(file.read())
+
 
     def act(self, state: np.ndarray, turn: int):
         # wheres = np.argwhere(state == EMPTY)
@@ -89,14 +102,15 @@ class Model(object):
         turn = BLACK
         for _ in tqdm(range(self.count)):
             self.step(state.copy(), turn, [])
+        self.save()
 
 
 class Game(object):
     def __init__(self):
         self.state = np.zeros((3, 3), dtype=np.int8)
         self.turn = BLACK
-        self.model = Model(epsilon=0.7, count=10000)
-        self.model.train()
+        self.model = Model(epsilon=0.7, count=100000)
+        #self.model.train()
         print(len(self.model.table))
 
     def input_function(self):
