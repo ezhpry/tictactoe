@@ -1,4 +1,5 @@
 import numpy as np
+import random
 import re
 
 EMPTY = 0
@@ -23,10 +24,24 @@ def end_game(state: np.ndarray) -> np.ndarray | None:
     return None
 
 
+
+class Model(object):
+    def __init__(self):
+        pass
+
+    def act(self,state:np.ndarray,turn:int):
+        wheres=np.argwhere(state==EMPTY)
+        where=random.choice(wheres)
+        return tuple(where)
+
+
+
+
 class Game(object):
     def __init__(self):
         self.state = np.zeros((3, 3), dtype=np.int8)
         self.turn = BLACK
+        self.model=Model()
 
     def input_function(self):
         while True:
@@ -64,6 +79,10 @@ class Game(object):
         while True:
             print(self.state)
             where = self.input_function()
+            self.action(where)
+            if self.check():
+                break
+            where=self.model.act(self.state,self.turn)
             self.action(where)
             if self.check():
                 break
