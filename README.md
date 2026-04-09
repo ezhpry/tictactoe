@@ -3,6 +3,12 @@ A simple Tic-Tac-Toe game in the terminal (no GUI) written in Python with a rein
 
 The AI uses Monte Carlo methods to learn from simulated games and improve its moves over time.
 
+# Architecture
+- `src/engine.py`: game rules and state management (board, moves, winner detection)
+- `src/ai.py`: Monte Carlo policy and model persistence (train, choose move, save/load)
+- `src/cli.py`: terminal interaction layer (input/output loop)
+- `src/game.py`: lightweight entrypoint that wires CLI + AI together
+
 # Installation
 ## 1. Clone the repository
 ``` sh
