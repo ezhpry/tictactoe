@@ -4,7 +4,7 @@
 [![tqdm](https://img.shields.io/badge/tqdm-progress-76B900?logo=python&logoColor=white)](https://tqdm.github.io/)
 [![uv](https://img.shields.io/badge/uv-package%20manager-DE5FE9)](https://docs.astral.sh/uv/)
 
-[English](./README.md) | [中文文档](./README.zh-CN.md)
+[中文（默认）](./README.md) | [English](./README.en.md)
 
 这是一个基于 Python 的命令行井字棋（无 GUI）项目，内置了强化学习（Reinforcement Learning）AI。
 

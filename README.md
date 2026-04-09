@@ -4,51 +4,42 @@
 [![tqdm](https://img.shields.io/badge/tqdm-progress-76B900?logo=python&logoColor=white)](https://tqdm.github.io/)
 [![uv](https://img.shields.io/badge/uv-package%20manager-DE5FE9)](https://docs.astral.sh/uv/)
 
-[中文文档](./README.zh-CN.md) | [English](./README.md)
+[中文（默认）](./README.md) | [English](./README.en.md)
 
-A simple Tic-Tac-Toe game in the terminal (no GUI) written in Python with a reinforcement learning-based AI.
+这是一个基于 Python 的命令行井字棋（无 GUI）项目，内置了强化学习（Reinforcement Learning）AI。
 
-The AI uses Monte Carlo methods to learn from simulated games and improve its moves over time.
+AI 采用蒙特卡洛方法进行自我对弈学习，并随着模拟对局增加不断优化落子策略。
 
-# Architecture
-- `src/engine.py`: game rules and state management (board, moves, winner detection)
-- `src/ai.py`: Monte Carlo policy and model persistence (train, choose move, save/load)
-- `src/cli.py`: terminal interaction layer (input/output loop)
-- `src/game.py`: lightweight entrypoint that wires CLI + AI together
-- `src/model.pkl`: pre-trained value table used by the AI
+# 架构
+- `src/engine.py`：游戏规则与状态管理（棋盘、落子、胜负判断）
+- `src/ai.py`：蒙特卡洛策略与模型持久化（训练、决策、保存/加载）
+- `src/cli.py`：终端交互层（输入输出与对局循环）
+- `src/game.py`：轻量入口，负责组合 CLI 与 AI
+- `src/model.pkl`：AI 使用的预训练价值表
 
-# Installation
-## 1. Clone the repository
+# 安装
+## 1. 克隆仓库
 ``` sh
- git clone https://github.com/ezhpry/tictactoe.git
+git clone https://github.com/ezhpry/tictactoe.git
 ```
 
-## 2. Setup environment
-Make sure you have installed uv.
+## 2. 初始化环境
+请先安装 `uv`。
 
-`uv sync` will automatically install dependencies, set up a virtual environment, and ensure the correct Python version.
+执行 `uv sync` 会自动安装依赖、创建虚拟环境并匹配 Python 版本。
 ``` sh
 cd tictactoe
 uv sync
 ```
 
-## 3. Run the game
+## 3. 运行游戏
 ``` sh
 python3 ./src/game.py
 ```
 
-# Optional: Re-train the AI
-Edit `src/game.py` and uncomment:
+# 可选：重新训练 AI
+编辑 `src/game.py`，取消以下注释：
 ```py
 # game.model.train()
 ```
-Then run the game again to generate a new `src/model.pkl`.
-
-
-
-
-
-
-
-
-
+然后再次运行程序，即可生成新的 `src/model.pkl`。
